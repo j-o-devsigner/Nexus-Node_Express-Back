@@ -23,12 +23,15 @@ const organizeQuoteData = (data) => {
 }
 
 const groupData = async (list, products) => {
-
-    const updatedData = await list.map(quote => {
-        const quoteProducts = products.filter(product => product.idquote === quote.id);
-        return { ...quote, products: quoteProducts };
-    });
-    return updatedData;
+    try{
+        const updatedData = await list.map(quote => {
+            const quoteProducts = products.filter(product => product.idquote === quote.id);
+            return { ...quote, products: quoteProducts };
+        });
+        return updatedData;
+    } catch(error) {
+        return console.error(error)
+    }
 }
 
 const findOne = async (id, data) => {
@@ -36,18 +39,19 @@ const findOne = async (id, data) => {
 }
 
 const findProducts = async (detailProducts, products) => {
-
-    let data = []
-
-        products.map( product => {
-            detailProducts.map(detail => {
-                if(detail.id === product.idproduct) {
-                data.push(detail)
-            }
+    try {
+        let data = []
+            products.map( product => {
+                detailProducts.map(detail => {
+                    if(detail.id === product.idproduct) {
+                    data.push(detail)
+                }
+            })
         })
-    })
-
-    return data
+        return data
+    } catch(error) {
+        return console.error(error)
+    }
 }
 
 const methods = {
