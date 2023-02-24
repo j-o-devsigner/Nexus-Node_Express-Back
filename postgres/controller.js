@@ -5,6 +5,7 @@ const list = async (table) => {
         try {
             const connection = await getConnection();
             const result = await connection.query(`SELECT * FROM ${table}`);
+            connection.end();
             return result.rows;
         } catch (error) {
             return error.message;
@@ -15,6 +16,7 @@ const findOne = async (table, id, key) => {
         try {
             const connection = await getConnection();
             const result = await connection.query(`SELECT * FROM ${table} WHERE ${key} ='${id}'`);
+            connection.end();
             return result.rows;
         } catch (error) {
             return error.message;
@@ -40,6 +42,7 @@ const create = async (table, data) => {
                 values = values.toLowerCase()
 
                 await connection.query(`INSERT INTO ${table} (${columns.toLowerCase()}) VALUES (${values})`);
+                connection.end();
                 return table + ' created'
             }
         } catch (error) {
@@ -57,6 +60,7 @@ const update = async (table, id, data, key) => {
             :
             updates = updates.toLowerCase()
             await connection.query(`UPDATE ${table} SET ${updates} WHERE ${key} = ${id}`);
+            connection.end();
             return table + ' updated!';
         }
     } catch (error) {

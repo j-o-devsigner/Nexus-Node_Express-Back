@@ -30,7 +30,7 @@ const groupData = async (list, products) => {
         });
         return updatedData;
     } catch(error) {
-        return console.error(error)
+        return message.error
     }
 }
 
@@ -50,7 +50,7 @@ const findProducts = async (detailProducts, products) => {
         })
         return data
     } catch(error) {
-        return console.error(error)
+        return message.error
     }
 }
 
